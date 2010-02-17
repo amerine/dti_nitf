@@ -1,6 +1,6 @@
 = dti_nitf
 
-Description goes here.
+This library helps you processes the "XML" (quotes are intentional) from DTI into valid nitf documents.
 
 == Note on Patches/Pull Requests
  
