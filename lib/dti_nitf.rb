@@ -32,7 +32,10 @@ module DTI
       file_string.gsub! /<hl2_chapterhead>/, '<p><em style="bold" class="hl2_chapterhead">'
   		file_string.gsub! /<\/hl2_chapterhead>/, '</em></p><p> </p>'
       
-      file_string.gsub! /<!-- (.*?)\(unknown\) -->/, replace_unknown('\1')
+      file_string.gsub!(/<!-- (.*?)\(unknown\) -->/) {replace_unknown($1)}
+
+      file_string.gsub!(/<hl1>(.*?)<\/hl1>/) { "<hl1>#{clear_tags($1)}</hl1>" }
+  		file_string.gsub!(/<hl2>(.*?)<\/hl2>/) { "<hl2>#{clear_tags($1)}</hl2>" }
       
       file_string.gsub! /\007/, "\n"
       
@@ -42,10 +45,15 @@ module DTI
     def self.replace_unknown(unicode_character)
       @@utf_table[unicode_character] || "&#x#{unicode_character}"
     end
+    
+    def self.clear_tags(text)
+      text.gsub! /<.*?>/, ''
+      text.lstrip
+    end
   end
 end
 
-file_contents = File.read('/tmp/02/abby 021010.xml')
+file_contents = File.read('/tmp/02/AIRPORT 021010.xml')
 story = DTI::NITF.parse(file_contents)
 
 pp story
