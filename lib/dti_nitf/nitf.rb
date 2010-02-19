@@ -1,7 +1,7 @@
 module DTI
   class NITF
-  
-    @@utf_table = YAML::load_file('lookup_table.yml')
+    dir = File.dirname(__FILE__)
+    @@utf_table = YAML::load_file(File.join(dir, 'lookup_table.yml'))
   
     def self.parse(file_string)        
       @@story_string = cleanup_text(file_string)
