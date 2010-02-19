@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mark Turner"]
   s.date = %q{2010-02-19}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = %q{Helps you processes the 'XML' (Quotes intentional) from DTI's XML export into valid NITF documents or Story & Media objects}
   s.email = %q{mark@amerine.net}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "dti_nitf.gemspec",
      "lib/dti_nitf.rb",
      "lib/dti_nitf/lookup_table.yml",
      "lib/dti_nitf/nitf.rb",
@@ -34,7 +35,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{Helps you processes the 'XML from DTI's XML export into valid NITF documents or Story & Media objects}
+  s.summary = %q{Process DTI's XML export into valid NITF documents or Story & Media objects}
   s.test_files = [
     "test/helper.rb",
      "test/test_dti_nitf.rb"
