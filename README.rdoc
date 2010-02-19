@@ -27,4 +27,4 @@ This library helps you processes the "XML" (quotes are intentional) from DTI's e
 
 == Copyright
 
-Copyright (c) 2010 Mark Turner. See LICENSE for details.
+Copyright (c) 2010 Mark Turner & Western Communications Inc. See LICENSE for details.
