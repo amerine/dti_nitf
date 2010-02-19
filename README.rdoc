@@ -1,6 +1,6 @@
 = dti_nitf
 
-This library helps you processes the "XML" (quotes are intentional) from DTI's export software into valid NITF documents.
+This library helps you processes the "XML" (quotes are intentional) from DTI's export software into valid NITF documents or Story & Media objects.
 
 == Note on Patches/Pull Requests
  

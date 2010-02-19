@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "dti_nitf"
-    gem.summary = %Q{TODO: one-line summary of your gem}
+    gem.summary = "Helps you processes the 'XML from DTI's XML export into valid NITF documents or Story & Media objects"
     gem.description = %Q{TODO: longer description of your gem}
     gem.email = "mark@amerine.net"
     gem.homepage = "http://github.com/amerine/dti_nitf"
