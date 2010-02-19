@@ -2,6 +2,19 @@
 
 This library helps you processes the "XML" (quotes are intentional) from DTI's export software into valid NITF documents or Story & Media objects.
 
+== usage
+	gem 'dti_nitf'
+	require 'dti_nitf'
+
+==example
+	story = DTI::Story.new(File.read('/tmp/02/AIRPORT 021010.xml'))
+		=> #<DTI::Story:0x10207d598
+	story.hl1
+		=> "Master plan to focus on attracting new tenants"
+	story.pub_date
+		=> "2010-02-10"
+	
+
 == Note on Patches/Pull Requests
  
 * Fork the project.
