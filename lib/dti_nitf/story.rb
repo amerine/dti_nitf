@@ -3,12 +3,20 @@ module DTI
     attr_accessor :raw_xml, :doc_id, :copyright_holder, :doc_name
     attr_accessor :publication, :section, :pub_date, :page
     attr_accessor :body, :byline, :paper, :hl1, :hl2, :tagline
+    attr_accessor :correction, :original_story_id
     
     def initialize(xml)
       self.raw_xml = DTI::NITF.parse(xml)
+      self.correction = false
       
       cracked = Crack::XML.parse(self.raw_xml)
       #pp cracked
+      
+      if cracked["nitf"]['head']['original_storyid']
+        self.correction = true 
+        self.original_story_id = cracked["nitf"]['head']['original_storyid'].to_i
+        self.hl1 = "Correction"
+      end
       
       doc_data = cracked["nitf"]["head"]["docdata"]
       pub_data = cracked["nitf"]["head"]["pubdata"]
@@ -26,14 +34,18 @@ module DTI
       self.body = join_hash(doc_body["body.content"]["p"])
       self.body = fix_quotes(self.body)
       
-      self.byline = doc_body["body.head"]["byline"]["person"].gsub!(/^By\s/, '').rstrip!
-      self.paper = doc_body["body.head"]["byline"]["byttl"].rstrip!
-      self.hl1 = doc_body["body.head"]["hedline"]["hl1"].to_s.rstrip
-      self.hl2 = doc_body["body.head"]["hedline"]["hl2"].to_s.lstrip.rstrip
-      self.tagline = doc_body["body.end"]["tagline"].to_s.lstrip.rstrip
-      
-      
+      if !self.correction?
+        self.byline = doc_body["body.head"]["byline"]["person"].gsub!(/^By\s/, '').rstrip!
+        self.paper = doc_body["body.head"]["byline"]["byttl"].rstrip!
+        self.hl1 = doc_body["body.head"]["hedline"]["hl1"].to_s.rstrip
+        self.hl2 = doc_body["body.head"]["hedline"]["hl2"].to_s.lstrip.rstrip
+        self.tagline = doc_body["body.end"]["tagline"].to_s.lstrip.rstrip
+      end
     end    
+    
+    def correction?
+      self.correction
+    end
     
     def join_hash(hash)
       hash_string =""
