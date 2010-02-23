@@ -3,7 +3,9 @@ dir = File.dirname(__FILE__)
 require File.join(dir, 'dti_nitf/nitf')
 require File.join(dir, 'dti_nitf/story')
 
-#file_contents = File.read('/tmp/02/CORREX 021410.xml')
-#story = DTI::Story.new(file_contents)
-
-#pp story
+# require 'pp'
+# 
+# file_contents = File.read('/tmp/02/a1furn 020810.xml')
+# story = DTI::Story.new(file_contents)
+# 
+# pp story

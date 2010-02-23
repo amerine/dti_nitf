@@ -35,11 +35,11 @@ module DTI
       self.body = fix_quotes(self.body)
       
       if !self.correction?
-        self.byline = doc_body["body.head"]["byline"]["person"].gsub!(/^By\s/, '').rstrip!
-        self.paper = doc_body["body.head"]["byline"]["byttl"].rstrip!
-        self.hl1 = doc_body["body.head"]["hedline"]["hl1"].to_s.rstrip
-        self.hl2 = doc_body["body.head"]["hedline"]["hl2"].to_s.lstrip.rstrip
-        self.tagline = doc_body["body.end"]["tagline"].to_s.lstrip.rstrip
+        self.byline = doc_body["body.head"]["byline"]["person"].gsub!(/^By\s/, '').rstrip if doc_body["body.head"]["byline"]
+        self.paper = doc_body["body.head"]["byline"]["byttl"].rstrip if doc_body["body.head"]["byline"]
+        self.hl1 = doc_body["body.head"]["hedline"]["hl1"].to_s.rstrip if doc_body["body.head"]["hedline"]
+        self.hl2 = doc_body["body.head"]["hedline"]["hl2"].to_s.lstrip.rstrip if doc_body["body.head"]["hedline"]
+        self.tagline = doc_body["body.end"]["tagline"].to_s.lstrip.rstrip if doc_body["body.end"]
       end
     end    
     
