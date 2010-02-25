@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{dti_nitf}
-  s.version = "0.2.2"
+  s.version = "0.2.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mark Turner"]
-  s.date = %q{2010-02-23}
+  s.date = %q{2010-02-25}
   s.description = %q{Helps you processes the 'XML' (Quotes intentional) from DTI's XML export into valid NITF documents or Story & Media objects}
   s.email = %q{mark@amerine.net}
   s.extra_rdoc_files = [
