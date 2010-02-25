@@ -10,6 +10,7 @@ module DTI
       self.correction = false
       
       cracked = Crack::XML.parse(self.raw_xml)
+      cracked.default =""
       
       if cracked["nitf"]['head']['original_storyid']
         self.correction = true 
@@ -34,8 +35,8 @@ module DTI
       self.body = fix_escaped_elements(self.body)
       
       if !self.correction?
-        self.byline = doc_body["body.head"]["byline"]["person"].gsub!(/^By\s/, '').rstrip if doc_body["body.head"]["byline"]
-        self.paper = doc_body["body.head"]["byline"]["byttl"].rstrip if doc_body["body.head"]["byline"]
+        self.byline = doc_body["body.head"]["byline"]["person"].rstrip.gsub(/^By\s/, '') if doc_body["body.head"]["byline"]
+        self.paper = doc_body["body.head"]["byline"]["byttl"].rstrip if doc_body["body.head"]["byline"]["byttl"]
         self.hl1 = doc_body["body.head"]["hedline"]["hl1"].to_s.rstrip if doc_body["body.head"]["hedline"]     
         if doc_body["body.head"]["hedline"] && doc_body["body.head"]["hedline"]["hl2"]
           self.hl2 = doc_body["body.head"]["hedline"]["hl2"].to_s.lstrip.rstrip
