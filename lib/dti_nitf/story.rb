@@ -10,7 +10,6 @@ module DTI
       self.correction = false
       
       cracked = Crack::XML.parse(self.raw_xml)
-      #pp cracked
       
       if cracked["nitf"]['head']['original_storyid']
         self.correction = true 
@@ -31,8 +30,8 @@ module DTI
       self.pub_date = pub_data["date.publication"].rstrip
       self.page = pub_data["position.sequence"].rstrip.to_i
       
-      self.body = join_hash(doc_body["body.content"]["p"])
-      self.body = fix_quotes(self.body)
+      self.body = doc_body["body.content"]["p"].collect{|d| "<p>#{d}</p>"}.join
+      self.body = fix_escaped_elements(self.body)
       
       if !self.correction?
         self.byline = doc_body["body.head"]["byline"]["person"].gsub!(/^By\s/, '').rstrip if doc_body["body.head"]["byline"]
@@ -49,20 +48,10 @@ module DTI
       self.correction
     end
     
-    def join_hash(hash)
-      hash_string =""
-      hash.each { |h|
-        hash_string << "<p>#{h}</p>"
-      }
-      return hash_string
-    end
-    
-    def fix_quotes(string)
-      string.gsub! "\342\200\230", "'"
-      string.gsub! "\342\200\231", "'"
-      string.gsub! "\342\200\234", '"'
-      string.gsub! "\342\200\235", '"'
-      string
+    def fix_escaped_elements(string)
+      return_string = string
+      return_string.gsub! /\342\200[\230\231]/, "'"
+      return_string.gsub! /\342\200[\234\235]/, '"'
     end
   end
 end
