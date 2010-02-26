@@ -10,7 +10,6 @@ module DTI
       self.correction = false
       
       cracked = Crack::XML.parse(self.raw_xml)
-      
       if cracked["nitf"]['head']['original_storyid']
         self.correction = true 
         self.original_story_id = cracked["nitf"]['head']['original_storyid'].to_i
@@ -26,22 +25,26 @@ module DTI
       self.doc_name = doc_data["doc_name"]["name_string"]
       
       if !pub_data.nil?
-        self.section = pub_data["position.section"].rstrip
-        self.pub_date = pub_data["date.publication"].rstrip
-        self.page = pub_data["position.sequence"].rstrip.to_i
+        self.section = pub_data["position.section"].strip
+        self.pub_date = pub_data["date.publication"].strip
+        self.page = pub_data["position.sequence"].strip.to_i
+        self.publication = pub_data["name"].strip
       end
       
       if !doc_body["body.content"].nil? and !doc_body["body.content"]["p"].nil?
-        self.body = doc_body["body.content"]["p"].collect{|d| "<p>#{d}</p>"}.join
+        self.body = doc_body["body.content"]["p"].collect{|d| "<p>#{d.to_s.strip}</p>"}.join
+        if self.body.length < 30
+          self.body = doc_body["body.content"].collect{|d| "<p>#{d.to_s.strip}</p>"}.join
+        end
         self.body = fix_escaped_elements(self.body)
       end
       
       if !self.correction?
         self.byline = doc_body["body.head"]["byline"]["person"].to_s.rstrip.gsub(/^By\s/, '') if doc_body["body.head"]["byline"]
         if !doc_body["body.head"]["byline"].nil?
-          self.paper = doc_body["body.head"]["byline"]["byttl"].to_s.rstrip if doc_body["body.head"]["byline"]["byttl"]
+          self.paper = doc_body["body.head"]["byline"]["byttl"].to_s.strip if doc_body["body.head"]["byline"]["byttl"]
         end
-        self.hl1 = doc_body["body.head"]["hedline"]["hl1"].to_s.rstrip if doc_body["body.head"]["hedline"]     
+        self.hl1 = doc_body["body.head"]["hedline"]["hl1"].to_s.chomp.strip.gsub(/\n/,'') if doc_body["body.head"]["hedline"]     
         if doc_body["body.head"]["hedline"] && doc_body["body.head"]["hedline"]["hl2"]
           self.hl2 = doc_body["body.head"]["hedline"]["hl2"].to_s.lstrip.rstrip
         end
@@ -54,9 +57,14 @@ module DTI
     end
     
     def fix_escaped_elements(string)
+      # puts "Paramter Passed to fix_escape_elemets: #{string.length}"
       return_string = string
+#      puts "Paramter converted to return_string in fix_escape_elemets: #{return_string.length}"
       return_string.gsub! /\342\200[\230\231]/, "'"
+#     puts "return_string after first regex in fix_escape_elemets: #{return_string.length}"
       return_string.gsub! /\342\200[\234\235]/, '"'
+#      puts "return_string after second regex in fix_escape_elemets: #{return_string.length}"
+      return_string
     end
   end
 end
