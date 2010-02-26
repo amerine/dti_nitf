@@ -10,7 +10,6 @@ module DTI
       self.correction = false
       
       cracked = Crack::XML.parse(self.raw_xml)
-      cracked.default =""
       
       if cracked["nitf"]['head']['original_storyid']
         self.correction = true 
@@ -26,17 +25,22 @@ module DTI
       self.copyright_holder = doc_data["doc.copyright"]["holder"]
       self.doc_name = doc_data["doc_name"]["name_string"]
       
-      self.publication = pub_data["name"].rstrip
-      self.section = pub_data["position.section"].rstrip
-      self.pub_date = pub_data["date.publication"].rstrip
-      self.page = pub_data["position.sequence"].rstrip.to_i
+      if !pub_data.nil?
+        self.section = pub_data["position.section"].rstrip
+        self.pub_date = pub_data["date.publication"].rstrip
+        self.page = pub_data["position.sequence"].rstrip.to_i
+      end
       
-      self.body = doc_body["body.content"]["p"].collect{|d| "<p>#{d}</p>"}.join
-      self.body = fix_escaped_elements(self.body)
+      if !doc_body["body.content"].nil? and !doc_body["body.content"]["p"].nil?
+        self.body = doc_body["body.content"]["p"].collect{|d| "<p>#{d}</p>"}.join
+        self.body = fix_escaped_elements(self.body)
+      end
       
       if !self.correction?
-        self.byline = doc_body["body.head"]["byline"]["person"].rstrip.gsub(/^By\s/, '') if doc_body["body.head"]["byline"]
-        self.paper = doc_body["body.head"]["byline"]["byttl"].rstrip if doc_body["body.head"]["byline"]["byttl"]
+        self.byline = doc_body["body.head"]["byline"]["person"].to_s.rstrip.gsub(/^By\s/, '') if doc_body["body.head"]["byline"]
+        if !doc_body["body.head"]["byline"].nil?
+          self.paper = doc_body["body.head"]["byline"]["byttl"].to_s.rstrip if doc_body["body.head"]["byline"]["byttl"]
+        end
         self.hl1 = doc_body["body.head"]["hedline"]["hl1"].to_s.rstrip if doc_body["body.head"]["hedline"]     
         if doc_body["body.head"]["hedline"] && doc_body["body.head"]["hedline"]["hl2"]
           self.hl2 = doc_body["body.head"]["hedline"]["hl2"].to_s.lstrip.rstrip
