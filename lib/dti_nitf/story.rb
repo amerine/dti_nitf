@@ -57,13 +57,9 @@ module DTI
     end
     
     def fix_escaped_elements(string)
-      # puts "Paramter Passed to fix_escape_elemets: #{string.length}"
       return_string = string
-#      puts "Paramter converted to return_string in fix_escape_elemets: #{return_string.length}"
       return_string.gsub! /\342\200[\230\231]/, "'"
-#     puts "return_string after first regex in fix_escape_elemets: #{return_string.length}"
       return_string.gsub! /\342\200[\234\235]/, '"'
-#      puts "return_string after second regex in fix_escape_elemets: #{return_string.length}"
       return_string
     end
   end

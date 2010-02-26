@@ -3,8 +3,9 @@ require 'pp'
 
 class TestDtiNitf < Test::Unit::TestCase
   @@xml = File.read('fixtures/basic-story.xml')
-  
   @@xml2 = File.read('fixtures/basic-story-2.xml')
+  @@xml_no_p_tags = File.read('fixtures/basic-story-no-p-tags.xml')
+  
   
   context "An NITF Parser instance" do
     setup do
@@ -59,6 +60,7 @@ class TestDtiNitf < Test::Unit::TestCase
     setup do
       @story = DTI::Story.new(@@xml)
       @story2 = DTI::Story.new(@@xml2)
+      @story_with_no_p_tags = DTI::Story.new(@@xml_no_p_tags)
     end
     
     should "have a doc_id" do
@@ -112,6 +114,10 @@ class TestDtiNitf < Test::Unit::TestCase
     
     should "process correcly if there is no byttl tag" do
       assert_nil @story2.paper
+    end
+    
+    should "still have a body if there are not <p></p> tags" do
+      assert @story_with_no_p_tags.body == '<p></p><p>High winds in the east and snow in the south made driving difficult on Oregon&#x2019s two interstate highways this morning, according to the Oregon Department of Transportation.</p><p></p><p>High winds and low visibility forced the closure of sections of Interstate 84 in Northeast Oregon this morning, and heavy snow near the Oregon-California border prompted ODOT to require chains on all vehicles except those with four-wheel drive on Interstate 5 over the Siskiyous.</p><p></p><p>Officials closed an 82-mile stretch of I-84 between Hermiston and La Grande this morning, although the westbound lanes were reopened by about 10:30 a.m., according to the agency&#x2019s Web site. Low visibility, blowing dust and debris also caused ODOT to close state Highway 11 between Pendleton and Milton-Freewater, the agency reported in a news release. Several crashes occurred in the area.</p><p></p><p>The National Weather Service has issued high-wind warnings for much of Southern Oregon - from the coast to the western portions of Lake County. Gusts could reach 90 mph in the southern Cascade and Siskiyou mountains. The warnings are in effect until 4 p.m., according to the weather service.</p><p></p><p>A blizzard warning has also been issued for the Cascades and Siskiyous in Southern Oregon and Northern California. The weather service expects very heavy snow above 4,000 feet.</p><p></p><p>In the central and north-central parts of the state, ODOT was requiring chains on Willamette Pass only. Rain was falling on Santiam Pass, Government Camp and Blue Box Pass late this morning. However, the weather service predicted the snow level in those areas would drop to 2,500 feet after midnight, and they could receive from 6-12 inches of new snow by Saturday morning.</p><p></p><p></p><p></p>'
     end
   end
 end

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE nitf SYSTEM "nitf-3-2.dtd">
+<nitf>
+  <head>
+    <meta name="project_group" content="WWX 010408"/>
+    <tobject tobject.type="news">
+<Keyword name = '4015003'/>	<Keyword name = '17000'/>	<Keyword name = '41220'/>
+    </tobject>
+    <docdata>
+	<doc.copyright holder="Western Communications, Inc."/>
+	<doc-id id-string="4130342"/>
+	<doc-name name-string="WWX 010408"/> 
+    </docdata>
+  </head>
+  <body>
+    <body.head>
+      <hedline>
+<hl1>
+		High winds, snow prompt road closures, travel restrictions
+	</hl1><hl2></hl2>
+      </hedline>
+      <byline>
+      </byline>
+    </body.head>
+    <body.content>
+	 High winds in the east and snow in the south made driving difficult on Oregon<!-- 2019(unknown) -->s two interstate highways this morning, according to the Oregon Department of Transportation.
+
+High winds and low visibility forced the closure of sections of Interstate 84 in Northeast Oregon this morning, and heavy snow near the Oregon-California border prompted ODOT to require chains on all vehicles except those with four-wheel drive on Interstate 5 over the Siskiyous. 
+
+Officials closed an 82-mile stretch of I-84 between Hermiston and La Grande this morning, although the westbound lanes were reopened by about 10:30 a.m., according to the agency<!-- 2019(unknown) -->s Web site. Low visibility, blowing dust and debris also caused ODOT to close state Highway 11 between Pendleton and Milton-Freewater, the agency reported in a news release. Several crashes occurred in the area. 
+
+The National Weather Service has issued high-wind warnings for much of Southern Oregon - from the coast to the western portions of Lake County. Gusts could reach 90 mph in the southern Cascade and Siskiyou mountains. The warnings are in effect until 4 p.m., according to the weather service.
+
+A blizzard warning has also been issued for the Cascades and Siskiyous in Southern Oregon and Northern California. The weather service expects very heavy snow above 4,000 feet.
+
+In the central and north-central parts of the state, ODOT was requiring chains on Willamette Pass only. Rain was falling on Santiam Pass, Government Camp and Blue Box Pass late this morning. However, the weather service predicted the snow level in those areas would drop to 2,500 feet after midnight, and they could receive from 6-12 inches of new snow by Saturday morning.
+
+
+    </body.content>  
+    <body.end>
+    </body.end>
+    </body>
+</nitf>
