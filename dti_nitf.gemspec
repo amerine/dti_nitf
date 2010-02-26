@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{dti_nitf}
-  s.version = "0.2.4"
+  s.version = "0.2.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mark Turner"]
-  s.date = %q{2010-02-25}
+  s.date = %q{2010-02-26}
   s.description = %q{Helps you processes the 'XML' (Quotes intentional) from DTI's XML export into valid NITF documents or Story & Media objects}
   s.email = %q{mark@amerine.net}
   s.extra_rdoc_files = [
@@ -28,6 +28,10 @@ Gem::Specification.new do |s|
      "lib/dti_nitf/lookup_table.yml",
      "lib/dti_nitf/nitf.rb",
      "lib/dti_nitf/story.rb",
+     "test/fixtures/basic-story-2.xml",
+     "test/fixtures/basic-story-no-p-tags.xml",
+     "test/fixtures/basic-story.xml",
+     "test/fixtures/correction.xml",
      "test/helper.rb",
      "test/test_dti_nitf.rb",
      "test/test_dti_nitf_correx.rb"
